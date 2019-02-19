@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    [v-cloak] {display: none;}
+  </style>
+  <title>category</title>
+</head>
+<body>
+<div id="app" v-cloak>
+  <div class="miro-layout-wrapper" :class="{toggle: sidebarToggle}">
+    <miro-header @emit="onSidebar" icon></miro-header>
+    <aside class="miro-sidebar">
+      <ul class="sidebar-inner">
+        <li v-for="(item,index) in categoryItem" @click="selectCategory(index)" :class="{active: index===currentIndex}">
+          {{item}}
+        </li>
+      </ul>
+    </aside>
+    <main class="miro-layout-main">
+      main
+    </main>
+  </div>
+</div>
+</body>
+</html>
