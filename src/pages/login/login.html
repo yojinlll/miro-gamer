@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>login</title>
+  <style>
+    [v-cloak]{display: none;}
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <div class="login-wrapper">
+      <div class="login">
+        <miro-input placeholder="用户名" v-model="username"></miro-input>
+        <miro-input placeholder="密码" password v-model="password"></miro-input>
+        <miro-button style="width: 190px;" @click="signup">登录</miro-button>
+        <miro-button style="width: 190px;" @click="logout">注销</miro-button>
+        <miro-button style="width: 190px;" @click="confirm">当前用户</miro-button>
+      </div>
+    </div>
+  </div>
+
+  <!--<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js"></script>-->
+</body>
+</html>

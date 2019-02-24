@@ -1,25 +1,37 @@
 import Vue from 'vue'
-import '../../components/miro/svg.js'
-import '@/modules/reset.css'
-import '@/modules/common.css'
+import router from './router-components/router'
+
+import '@/modules/css/reset.css'
+import '@/modules/css/common.css'
 import './category.scss'
 
 import Header from '@/components/miro-header.vue'
-Vue.component('miro-header',Header)
+
+Vue.component('miro-header', Header)
 
 new Vue({
   el: '#app',
+  router,
   data: {
-    categoryItem: ['全部', '游戏本', '轻薄本'],
-    currentIndex: 0,
-    sidebarToggle: true
+    categoryItem: {
+      all: {name: '全部', path: 'all'},
+      game: {name: '游戏本', path: 'game'},
+      super: {name: '超级本', path: 'super'},
+    },
+    currentPath: 'all',
+    sidebarHide: true,
   },
   methods: {
-    selectCategory(index){        // 触发 li 样式
-      this.currentIndex = index
+    selectCategory(path){        // 触发 li 样式
+      this.currentPath = path
+      this.$router.push({path: path})
+      this.sidebarHide = true
     },
-    onSidebar(e){
-      this.sidebarToggle = e
+    onSidebar(){
+      this.sidebarHide = !this.sidebarHide
+    },
+    productRoute(){
+      this.$router.push({name: 'product'})
     }
   }
 })

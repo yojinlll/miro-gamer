@@ -1,7 +1,7 @@
 <template>
   <div class="miro-input" :class="{error}">
     <input type="text" :value="value" :disabled="disabled" :readonly="readonly"
-           :placeholder="placeholder"
+           :placeholder="placeholder" :type="isPassword"
            @change="$emit('change', $event.target.value)"
            @input="$emit('input', $event.target.value)"
            @focus="$emit('focus', $event.target.value)"
@@ -38,6 +38,14 @@
       },
       error: {
         type: String
+      },
+      password: {
+        type: Boolean,
+      }
+    },
+    computed: {
+      isPassword(){
+        if(this.password){return 'password'}
       }
     },
     components: {

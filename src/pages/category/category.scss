@@ -63,11 +63,19 @@ $theme-color: #6fb46c;
     padding-top: 60px;
     height: 200vh;
     transition: all $duration;
+
+    .miro-product{
+      border: 1px solid black;
+      width: 400px;
+      height: 300px;
+      margin: 100px;
+      cursor: pointer;
+    }
   }
 }
 
 @media (max-width: 720px) {
-  .miro-layout-wrapper.toggle {
+  .miro-layout-wrapper.sidebarHide {
     .miro-sidebar {transform: translateX(-100%);transition: all $duration;}
   }
   .miro-layout-wrapper .miro-layout-main {padding-left: 0; transition: all $duration;}

@@ -1,0 +1,53 @@
+$color: #2c3e50;
+$border-color: #d1d3d6;
+$duration: .3s;
+$theme-color: #6fb46c;
+
+.member-main {
+  padding: 0 10px 10px 10px;
+  border: 1px solid $border-color;
+  width: 60vw;
+  height: 100%;
+  margin: 130px auto 100px auto;
+  box-shadow: 2px 2px 2px $border-color;
+
+  .member-user {
+    border-bottom: 1px solid $border-color;
+    padding: 20px 0 20px 5%;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      font-size: 4em;
+      margin-right: 30px;
+      color: $theme-color;
+    }
+  }
+  .member-info {
+    padding-top: 10px;
+    height: 100%;
+
+    .member-tabs {
+      .miro-tabs-head {font-size: 14px;}
+      .miro-tabs-body {
+        padding: 0;
+        .miro-tabs-pane {
+          min-height: 200px;
+        }
+      }
+
+      .tabs-item{
+        margin: 10px 0 0 10px;
+        font-size: 14px;
+
+        label{display: inline-block; width: 6em; text-align: center}
+        .miro-input{display: inline-block;}
+
+      }
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .member-main {width: 95vw;}
+}

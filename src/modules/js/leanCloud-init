@@ -1,0 +1,8 @@
+import AV from 'leancloud-storage'
+
+const APP_ID = 'QKTA3qdUyDN9jHVDsMVJuTzK-gzGzoHsz'
+const APP_KEY = '8tJxRBidqKhUsnfWmrYvXjFC'
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY
+})

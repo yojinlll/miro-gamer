@@ -12,17 +12,20 @@
 </head>
 <body>
 <div id="app" v-cloak>
-  <div class="miro-layout-wrapper" :class="{toggle: sidebarToggle}">
+  <div class="miro-layout-wrapper" :class="{sidebarHide: sidebarHide}">
+
     <miro-header @emit="onSidebar" icon></miro-header>
+
     <aside class="miro-sidebar">
       <ul class="sidebar-inner">
-        <li v-for="(item,index) in categoryItem" @click="selectCategory(index)" :class="{active: index===currentIndex}">
-          {{item}}
+        <li v-for="item in categoryItem" @click="selectCategory(item.path)" :class="{active: item.path===currentPath}" :key="item.path">
+          {{item.name}}
         </li>
       </ul>
     </aside>
+
     <main class="miro-layout-main">
-      main
+      <router-view></router-view>
     </main>
   </div>
 </div>
