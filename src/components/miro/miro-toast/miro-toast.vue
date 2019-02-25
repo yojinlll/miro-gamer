@@ -88,15 +88,16 @@
       },
       onClickClose(){
         this.onClose(0)
-        if (this.callback) {
-          this.callback()
-        }
+        // if (this.callback) {
+        //   this.callback()
+        // }
       },
       onClose(time){
         setTimeout(() => {
           // 激活动画类名
           this.isActive.leave = true
           setTimeout(() => {
+            this.emitCallback()
             this.$el.remove()
             this.$destroy()
 
@@ -104,7 +105,11 @@
           }, 300)
         }, time)
       },
-
+      emitCallback(){
+        if (this.callback) {
+          this.callback()
+        }
+      }
     },
     components: {
       'miro-icon': Icon
