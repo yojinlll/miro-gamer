@@ -53,7 +53,7 @@ new Vue({
       }
     },
     goMember(){
-      this.$toast('页面在两秒后跳转', {
+      this.$toast('登录成功，页面将在两秒后跳转', {
         autoClose: 2000,
         center: true
       })

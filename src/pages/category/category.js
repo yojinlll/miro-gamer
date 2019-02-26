@@ -6,7 +6,6 @@ import '@/modules/css/common.css'
 import './category.scss'
 
 import Header from '@/components/miro-header.vue'
-
 Vue.component('miro-header', Header)
 
 new Vue({

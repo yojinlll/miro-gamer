@@ -10,8 +10,13 @@ $theme-color: #6fb46c;
   height: 100%;
   margin: 130px auto 100px auto;
   box-shadow: 2px 2px 2px $border-color;
+
+
+  .cart-tabs > .miro-tabs-body {padding: 0 !important;}
+
+  li{border: 1px solid black;}
 }
 
 @media (max-width: 720px) {
-  .cart-main {width: 95vw;}
+  .cart-main {width: 95vw;  margin: 100px auto 100px auto;}
 }

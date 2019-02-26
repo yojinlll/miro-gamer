@@ -14,20 +14,20 @@
   <div id="app" v-cloak>
     <miro-header></miro-header>
     <div class="cart-main" @click="log">
-      <miro-tabs :select.sync="activeNames">
+      <miro-tabs class="cart-tabs" :select.sync="activeNames">
         <miro-tabs-head slot="head">
-          <miro-tabs-item name="one">购物车</miro-tabs-item>
-          <miro-tabs-item name="two">已购商品</miro-tabs-item>
+          <miro-tabs-item name="1">购物车</miro-tabs-item>
+          <miro-tabs-item name="2">已购商品</miro-tabs-item>
         </miro-tabs-head>
 
-        <miro-tabs-pane name="one" style="line-height: 100px; text-align: center">
+        <miro-tabs-pane name="1" style="line-height: 100px; text-align: center">
           <ul>
             <li v-for="item in cartList">
               待购商品 {{item}}
             </li>
           </ul>
         </miro-tabs-pane>
-        <miro-tabs-pane name="two" style="line-height: 100px; text-align: center">
+        <miro-tabs-pane name="2" style="line-height: 100px; text-align: center">
           <ul>
             <li v-for="item in orderList">
               已购商品 {{item}}

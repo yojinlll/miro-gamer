@@ -9,26 +9,43 @@ import '@/components/miro/svg.js'
 import mixin from '@/modules/js/mixin.js'
 import AV from 'leancloud-storage'
 
+const currentUser = AV.User.current() // 获取当前用户
+
+// import {all} from '@/modules/js/productData.js'
+// let Product = AV.Object.extend('Product')
+// all.forEach((item)=>{
+//   let product = new Product()
+//   product.set('name', item.name);
+//   product.set('tag', item.tag);
+//   product.set('price', item.price);
+//   product.set('img1', item.img1);
+//   product.set('img2', item.img2);
+//   product.save()
+// })
+
 
 new Vue({
   el: '#app',
   data(){
     return {
-      activeNames: 'one',
-      userData: {
+      activeNames: '2',
+      // userName: null,
+      userData: {   // 地址数据
         user: null,
         phone: null,
         area: null,
         address: null
       },
-      currentAddress: null,
-      currentAddressId: null
+      currentAddress: null,       // 当前展示的地址数据
+      currentAddressId: null      // 当前展示的地址数据的id
     }
   },
   computed: {
-    id(){
-      let currentUser = AV.User.current()
+    id(){       // 用户id
       return currentUser.id
+    },
+    userName(){   // 用户注册名
+      return currentUser.attributes.username
     }
   },
   mounted(){
@@ -69,6 +86,8 @@ new Vue({
         for (let key in this.userData) {
           this.userData[key] = null
         }
+      }else{
+        this.$toast('请填写输入框所需的地址信息',{position: 'middle',autoClose: 2000})
       }
     },
     queryAddress(){

@@ -1,19 +1,21 @@
 <template>
-  <div class="all-wrapper">
-    <ul class="all-list clearFix">
-      <li class="all-item" @click="xxx" v-for="item in allList">
-        {{item}}
+  <div class="product-list-wrapper">
+    <ul class="product-list clearFix">
+      <li class="product-item" @click="xxx" v-for="item in allList">
+        {{item.name}}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+  import {all} from '@/modules/js/productData.js'
+
   export default {
     name: "gamer-all",
     data(){
       return {
-        allList: [0,1,2,3,4,5,6,7,8,9,10]
+        allList: all
       }
     },
     methods: {
@@ -31,7 +33,7 @@
   $duration: .3s;
   $theme-color: #6fb46c;
 
-  .all-wrapper{
+  .product-list-wrapper{
     padding: 20px;
     border: 1px solid $border-color;
 
@@ -41,11 +43,11 @@
       clear: both;
     }
 
-    .all-item{
+    .product-item{
       background: white;
       border: 1px solid $border-color;
       width: 100px;
-      height: 200px;
+      height: 300px;
       margin: 10px 0 0 10px;
       float: left;
     }

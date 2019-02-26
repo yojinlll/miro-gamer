@@ -19,21 +19,21 @@
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#i-member"></use>
       </svg>
-      <span>name</span>
+      <span>{{userName}}</span>
     </div>
     <div class="member-info">
       <miro-tabs class="member-tabs" :select.sync="activeNames">
         <miro-tabs-head slot="head">
-          <miro-tabs-item name="one">个人资料</miro-tabs-item>
-          <miro-tabs-item name="setAddress">地址设置</miro-tabs-item>
-          <miro-tabs-item name="setPassword">密码修改</miro-tabs-item>
+          <miro-tabs-item name="1">个人资料</miro-tabs-item>
+          <miro-tabs-item name="2">地址设置</miro-tabs-item>
+          <!--<miro-tabs-item name="3">密码修改</miro-tabs-item>-->
         </miro-tabs-head>
 
-        <miro-tabs-pane name="one">
+        <miro-tabs-pane name="1">
           <miro-button @click="confirm">confirm</miro-button>
         </miro-tabs-pane>
 
-        <miro-tabs-pane name="setAddress">
+        <miro-tabs-pane name="2">
           <div class="tabs-item">
             <label>收&nbsp;货&nbsp;人：</label>
             <miro-input v-model="userData.user"></miro-input>
@@ -67,23 +67,23 @@
           </div>
         </miro-tabs-pane>
 
-        <miro-tabs-pane name="setPassword">
-          <div class="tabs-item">
-            <label>原&nbsp;密&nbsp;码：</label>
-            <miro-input></miro-input>
-          </div>
-          <div class="tabs-item">
-            <label>新&nbsp;密&nbsp;码：</label>
-            <miro-input></miro-input>
-          </div>
-          <div class="tabs-item">
-            <label>确认新密码：</label>
-            <miro-input></miro-input>
-          </div>
-          <div class="tabs-item">
-            <miro-button>保存</miro-button>
-          </div>
-        </miro-tabs-pane>
+        <!--<miro-tabs-pane name="3">-->
+          <!--<div class="tabs-item">-->
+            <!--<label>原&nbsp;密&nbsp;码：</label>-->
+            <!--<miro-input></miro-input>-->
+          <!--</div>-->
+          <!--<div class="tabs-item">-->
+            <!--<label>新&nbsp;密&nbsp;码：</label>-->
+            <!--<miro-input></miro-input>-->
+          <!--</div>-->
+          <!--<div class="tabs-item">-->
+            <!--<label>确认新密码：</label>-->
+            <!--<miro-input></miro-input>-->
+          <!--</div>-->
+          <!--<div class="tabs-item">-->
+            <!--<miro-button>保存</miro-button>-->
+          <!--</div>-->
+        <!--</miro-tabs-pane>-->
 
       </miro-tabs>
     </div>
