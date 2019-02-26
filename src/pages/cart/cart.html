@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>cart</title>
+  <style>
+    [v-cloak] {display: none;}
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <miro-header></miro-header>
+    <div class="cart-main" @click="log">
+      <miro-tabs :select.sync="activeNames">
+        <miro-tabs-head slot="head">
+          <miro-tabs-item name="one">购物车</miro-tabs-item>
+          <miro-tabs-item name="two">已购商品</miro-tabs-item>
+        </miro-tabs-head>
+
+        <miro-tabs-pane name="one" style="line-height: 100px; text-align: center">
+          <ul>
+            <li v-for="item in cartList">
+              待购商品 {{item}}
+            </li>
+          </ul>
+        </miro-tabs-pane>
+        <miro-tabs-pane name="two" style="line-height: 100px; text-align: center">
+          <ul>
+            <li v-for="item in orderList">
+              已购商品 {{item}}
+            </li>
+          </ul>
+        </miro-tabs-pane>
+      </miro-tabs>
+    </div>
+  </div>
+</body>
+</html>

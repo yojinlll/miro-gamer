@@ -6,7 +6,7 @@ $theme-color: #6fb46c;
 .member-main {
   padding: 0 10px 10px 10px;
   border: 1px solid $border-color;
-  width: 60vw;
+  width: 50vw;
   height: 100%;
   margin: 130px auto 100px auto;
   box-shadow: 2px 2px 2px $border-color;
@@ -43,6 +43,23 @@ $theme-color: #6fb46c;
         label{display: inline-block; width: 6em; text-align: center}
         .miro-input{display: inline-block;}
 
+      }
+    }
+    .current-address{
+      margin-top: 2em;
+      border-top: 1px solid $border-color;
+      padding: 10px 10px 0 10px;
+      display: flex;
+
+      .left-part{
+        flex: 9;
+      }
+      .right-part{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
       }
     }
   }

@@ -34,7 +34,7 @@ new Vue({
           }, function (error){}).then(()=>{this.goMember()})
         })
       }else {
-        console.log('请填写用户名及登录密码')
+        this.$toast('请填写用户名及登录密码',{center:true,autoClose: 2000})
       }
     },
     logout(){

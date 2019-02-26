@@ -7,3 +7,8 @@ body{color: #2c3e50;}
   fill: currentColor;
   overflow: hidden;
 }
+
+.miro-popover{
+  background: none !important;
+}
+.miro-popover::before{display: none !important; }

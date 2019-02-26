@@ -1,0 +1,17 @@
+$color: #2c3e50;
+$border-color: #d1d3d6;
+$duration: .3s;
+$theme-color: #6fb46c;
+
+.cart-main{
+  padding: 10px;
+  border: 1px solid $border-color;
+  width: 60vw;
+  height: 100%;
+  margin: 130px auto 100px auto;
+  box-shadow: 2px 2px 2px $border-color;
+}
+
+@media (max-width: 720px) {
+  .cart-main {width: 95vw;}
+}

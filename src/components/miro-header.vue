@@ -4,23 +4,30 @@
         <svg class="icon" aria-hidden="true" @click="$emit('emit')" v-if="icon">
           <use xlink:href="#i-list"></use>
         </svg>
-          <a href="member.html">Miro</a>
+          <a :href="link.category">Miro</a>
       </span>
     <div class="right-part">
-      <a href="login.html">
-        <svg class="icon cart-icon" aria-hidden="true">
-          <use xlink:href="#i-cart"></use>
-        </svg>
-      </a><a href="login.html">
-        <svg class="icon" aria-hidden="true">
+      <svg class="icon cart-icon" aria-hidden="true" @click="goCart">
+        <use xlink:href="#i-cart"></use>
+      </svg>
+      <miro-popover position="bottom">
+        <template slot="popover" v-if="currentUser">
+          <div class="header-popover">
+            <div class="popover-item"><a :href="link.member">个人中心</a></div>
+            <div class="popover-item" @click="logOut">注销</div>
+          </div>
+        </template>
+        <svg class="icon" aria-hidden="true" @click="goMember" :style="{color: iconColor}">
           <use xlink:href="#i-member"></use>
         </svg>
-      </a>
+      </miro-popover>
     </div>
   </header>
 </template>
 <script>
   import '@/components/miro/svg.js'
+  import mixin from '@/modules/js/mixin.js'
+  import AV from 'leancloud-storage'
 
   export default {
     name: "miro-header",
@@ -29,13 +36,64 @@
         link: {
           login: 'login.html',
           member: 'member.html',
-          home: 'home.html'
+          home: 'home.html',
+          category: 'category.html#/all',
+          cart: 'cart.html'
         },
+        currentUser: null
       }
     },
     props: {
-      icon: {type:Boolean, default:false}
-    }
+      icon: {type: Boolean, default: false}
+    },
+    computed: {
+      iconColor(){
+        if (this.currentUser) {
+          return '#6fb46c'
+        }
+      }
+    },
+    mounted(){
+      this.currentUser = AV.User.current()
+    },
+    methods: {
+      goMember(){
+        if (! this.currentUser) {
+          let login = this.link.login
+          this.$toast('需要登录才可访问个人页面，2秒后跳转', {
+            autoClose: 2000,
+            callback(){
+              document.location.href = login
+            }
+          })
+        }
+      },
+      goCart(){
+        if (! this.currentUser) {
+          let login = this.link.login
+          this.$toast('需要登录才可访问购物车页面，2秒后跳转', {
+            autoClose: 2000,
+            callback(){
+              document.location.href = login
+            }
+          })
+        }else {
+          document.location.href = this.link.cart
+        }
+      },
+      logOut(){
+        AV.User.logOut()
+        let category = this.link.category
+        this.$toast('注销成功', {
+          autoClose: 1000,
+          callback(){
+            document.location.href = category
+          }
+        })
+      }
+
+    },
+    mixins: mixin
   }
 </script>
 
@@ -66,18 +124,26 @@
       color: $theme-color;
       cursor: pointer;
     }
-    .right-part{
+    .right-part {
       .icon {
         font-size: 1.5em;
         vertical-align: bottom;
         cursor: pointer;
         color: #8e8e8e;
       }
-      .cart-icon{
+      .cart-icon {
         font-size: 1em;
         vertical-align: middle;
         margin: 0 20px 5px 0;
       }
+    }
+  }
+
+  .header-popover {
+    background: white; padding: 0 10px; border-radius: 4px; transform: translateX(-70%);
+
+    .popover-item {width: 5em; border-bottom: 1px solid #d1d3d6; cursor: pointer; padding: 10px 0;
+      &:nth-child(2) {border: none;}
     }
   }
 
