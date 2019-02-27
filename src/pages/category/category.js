@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import router from './router-components/router'
+import store from '@/modules/js/store.js'
 
 import '@/modules/css/reset.css'
 import '@/modules/css/common.css'
@@ -11,6 +12,7 @@ Vue.component('miro-header', Header)
 new Vue({
   el: '#app',
   router,
+  store,
   data: {
     categoryItem: {
       all: {name: '全部', path: 'all'},

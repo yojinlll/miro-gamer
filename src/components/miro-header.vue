@@ -4,7 +4,7 @@
         <svg class="icon" aria-hidden="true" @click="$emit('emit')" v-if="icon">
           <use xlink:href="#i-list"></use>
         </svg>
-          <a :href="link.category">Miro</a>
+          <span @click="goCategory">Miro</span>
       </span>
     <div class="right-part">
       <svg class="icon cart-icon" aria-hidden="true" @click="goCart">
@@ -17,7 +17,7 @@
             <div class="popover-item" @click="logOut">注销</div>
           </div>
         </template>
-        <svg class="icon" aria-hidden="true" @click="goMember" :style="{color: iconColor}">
+        <svg class="icon" aria-hidden="true" @click="goMemberCheck" :style="{color: iconColor}">
           <use xlink:href="#i-member"></use>
         </svg>
       </miro-popover>
@@ -57,29 +57,23 @@
       this.currentUser = AV.User.current()
     },
     methods: {
-      goMember(){
-        if (! this.currentUser) {
-          let login = this.link.login
-          this.$toast('需要登录才可访问个人页面，2秒后跳转', {
-            autoClose: 2000,
-            callback(){
-              document.location.href = login
-            }
-          })
-        }
+      checkHandler(page){
+        let login = this.link.login
+        this.$toast(`需要登录才可访问${page}页面，2秒后跳转`, {
+          autoClose: 2000,
+          callback(){
+            document.location.href = login
+          }
+        })
+      },
+      goCategory(){
+        document.location.href = this.link.category
+      },
+      goMemberCheck(){
+        if (! this.currentUser) {this.checkHandler('个人')}
       },
       goCart(){
-        if (! this.currentUser) {
-          let login = this.link.login
-          this.$toast('需要登录才可访问购物车页面，2秒后跳转', {
-            autoClose: 2000,
-            callback(){
-              document.location.href = login
-            }
-          })
-        }else {
-          document.location.href = this.link.cart
-        }
+        ! this.currentUser ? this.checkHandler('购物车') : document.location.href = this.link.cart
       },
       logOut(){
         AV.User.logOut()
@@ -118,11 +112,14 @@
     justify-content: space-between;
     font-size: 1.5em;
 
-    .left-part .icon {
-      display: none;
-      margin-right: 10px;
-      color: $theme-color;
-      cursor: pointer;
+    .left-part{
+      span{cursor: pointer}
+      .icon {
+        display: none;
+        margin-right: 10px;
+        color: $theme-color;
+        cursor: pointer;
+      }
     }
     .right-part {
       .icon {

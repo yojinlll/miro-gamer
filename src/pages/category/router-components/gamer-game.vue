@@ -1,23 +1,23 @@
 <template>
   <div class="product-list-wrapper">
     <ul class="product-list clearFix">
-      <!--<li class="product-item" @click="xxx" v-for="item in gameList">-->
-        <!--{{item.name}}-->
-      <!--</li>-->
+      <li class="product-item" @click="xxx" v-for="item in gameProduct" v-if="gameProduct" :key="item.id">
+        {{item.name}}
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+  import {mapState} from 'vuex'
 
   export default {
     name: "gamer-game",
-    data(){
-      return {}
+    computed: {
+      ...mapState(['gameProduct'])
     },
     methods: {
       xxx(){
-        console.log(1111)
         this.$router.push({name: 'product'})
       }
     }

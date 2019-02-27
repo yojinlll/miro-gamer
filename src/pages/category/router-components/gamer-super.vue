@@ -1,23 +1,23 @@
 <template>
   <div class="product-list-wrapper">
     <ul class="product-list clearFix">
-      <!--<li class="product-item" @click="xxx" v-for="item in superList">-->
-        <!--{{item.name}}-->
-      <!--</li>-->
+      <li class="product-item" @click="xxx" v-for="item in superProduct" v-if="superProduct" :key="item.id">
+        {{item.name}}
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+  import {mapState} from 'vuex'
 
   export default {
-    name: "gamer-game",
-    data(){
-      return {}
+    name: "gamer-super",
+    computed: {
+      ...mapState(['superProduct'])
     },
     methods: {
       xxx(){
-        console.log(1111)
         this.$router.push({name: 'product'})
       }
     }
@@ -30,17 +30,17 @@
   $duration: .3s;
   $theme-color: #6fb46c;
 
-  .product-list-wrapper{
+  .product-list-wrapper {
     padding: 20px;
     border: 1px solid $border-color;
 
-    .clearFix::after{
+    .clearFix::after {
       display: block;
       content: '';
       clear: both;
     }
 
-    .product-item{
+    .product-item {
       background: white;
       border: 1px solid $border-color;
       width: 100px;
