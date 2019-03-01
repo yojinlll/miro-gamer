@@ -13,10 +13,11 @@ let routes = [
   {path: '/all', component: All, name: 'all'},
   {path: '/game', component: Game, name: 'game'},
   {path: '/super', component: Super, name: 'super'},
-  {path: '/product', component: Product, name: 'product'}
+  {path: `/product`, component: Product, name: 'product'}
 ]
 
 let router = new Router({
   routes
 })
+
 export default router

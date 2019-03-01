@@ -30,9 +30,11 @@ new Vue({
     },
     onSidebar(){
       this.sidebarHide = !this.sidebarHide
-    },
-    productRoute(){
-      this.$router.push({name: 'product'})
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.currentPath = to.name
     }
   }
 })

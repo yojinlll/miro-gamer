@@ -50,6 +50,8 @@
       iconColor(){
         if (this.currentUser) {
           return '#6fb46c'
+        }else{
+          return '#8e8e8e'
         }
       }
     },
@@ -70,18 +72,23 @@
         document.location.href = this.link.category
       },
       goMemberCheck(){
-        if (! this.currentUser) {this.checkHandler('个人')}
+        if (! this.currentUser) {
+          this.checkHandler('个人')
+        }
       },
       goCart(){
         ! this.currentUser ? this.checkHandler('购物车') : document.location.href = this.link.cart
       },
       logOut(){
         AV.User.logOut()
+        this.currentUser = AV.User.current()
         let category = this.link.category
         this.$toast('注销成功', {
           autoClose: 1000,
           callback(){
             document.location.href = category
+            let event = new Event('click');
+            document.dispatchEvent(event);
           }
         })
       }
@@ -112,8 +119,8 @@
     justify-content: space-between;
     font-size: 1.5em;
 
-    .left-part{
-      span{cursor: pointer}
+    .left-part {
+      span {cursor: pointer}
       .icon {
         display: none;
         margin-right: 10px;

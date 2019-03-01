@@ -13,15 +13,18 @@ const currentUser = AV.User.current() // 获取当前用户
 
 // import {all} from '@/modules/js/productData.js'
 // let Product = AV.Object.extend('Product')
+// let array = []
 // all.forEach((item)=>{
 //   let product = new Product()
 //   product.set('name', item.name);
+//   product.set('productId', item.id);
 //   product.set('tag', item.tag);
 //   product.set('price', item.price);
 //   product.set('img1', item.img1);
 //   product.set('img2', item.img2);
-//   product.save()
+//   array.push(product)
 // })
+// AV.Object.saveAll(array)
 
 
 new Vue({

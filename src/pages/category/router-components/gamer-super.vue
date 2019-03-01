@@ -1,7 +1,7 @@
 <template>
   <div class="product-list-wrapper">
     <ul class="product-list clearFix">
-      <li class="product-item" @click="xxx" v-for="item in superProduct" v-if="superProduct" :key="item.id">
+      <li class="product-item" @click="xxx(item.productId)" v-for="item in superProduct" v-if="superProduct" :key="item.id">
         {{item.name}}
       </li>
     </ul>
@@ -17,8 +17,8 @@
       ...mapState(['superProduct'])
     },
     methods: {
-      xxx(){
-        this.$router.push({name: 'product'})
+      xxx(id){
+        this.$router.push({name: 'product',query: { id:id }})
       }
     }
   }

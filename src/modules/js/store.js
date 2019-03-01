@@ -33,7 +33,7 @@ const store = new Vuex.Store({
     getAllProduct({commit}){
       let allProduct = null
       let query = new AV.Query('Product')
-      query.find().then((list)=>{
+      return query.find().then((list)=>{
         allProduct = list.map((item)=>{return item.attributes})
         commit('setCategoryProduct',allProduct)
       })
