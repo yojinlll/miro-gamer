@@ -39,7 +39,7 @@
     /*border: 1px solid black;*/
 
     > .miro-tabs-body{
-      padding: 10px;
+      padding: 10px 0;
     }
   }
 </style>

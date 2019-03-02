@@ -20,8 +20,7 @@ const currentUser = AV.User.current() // 获取当前用户
 //   product.set('productId', item.id);
 //   product.set('tag', item.tag);
 //   product.set('price', item.price);
-//   product.set('img1', item.img1);
-//   product.set('img2', item.img2);
+//   product.set('img', item.img);
 //   array.push(product)
 // })
 // AV.Object.saveAll(array)
