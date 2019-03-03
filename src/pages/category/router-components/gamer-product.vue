@@ -1,12 +1,12 @@
 <template>
-  <div class="product-wrapper">
-    <div class="product-info" v-if="currentProduct">
+  <div class="product-wrapper" v-if="currentProduct">
+    <div class="product-info">
       <div class="img-part">
         <div class="img-main">
           <img :src="showImg" alt="show-product-img">
         </div>
         <div class="img-list">
-          <div @click="log(img)" v-for="img in currentProduct.img">
+          <div @click="selectImg(img)" v-for="img in currentProduct.img">
             <img :src="img" alt='product-img'>
           </div>
         </div>
@@ -17,16 +17,16 @@
           价格：
           <span>￥{{currentProduct.price}}</span>
         </div>
-        <div class="amount-info">
+        <div class="number-info">
           数量：
-          <span class="minus" @click="changeAmount('minus')">-</span>
-          <input type="text" v-model="amount">
-          <span class="add" @click="changeAmount('add')">+</span>
+          <span @click="changeNumber('reduce')">-</span>
+          <input type="text" v-model="number">
+          <span @click="changeNumber('add')">+</span>
         </div>
         <div class="actions">
           <miro-button-group>
-            <miro-button>立即购买</miro-button>
-            <miro-button>添加购物车</miro-button>
+            <miro-button @click="addCart(number)">立即购买</miro-button>
+            <miro-button @click="addCart(number)">添加购物车</miro-button>
           </miro-button-group>
         </div>
       </div>
@@ -73,13 +73,14 @@
 
 <script>
   import {mapState, mapActions} from 'vuex'
+  import AV from 'leancloud-storage'
 
   export default {
     name: "gamer-product",
     data(){
       return {
         currentProduct: null,
-        amount: 0,
+        number: 0,
         showImg: null,
         activeNames: '1'
       }
@@ -100,6 +101,7 @@
       ...mapActions(['getAllProduct']),
 
       getCurrentProduct(){
+        // 通过查询字符串获取对应产品数据
         let {id} = this.$router.currentRoute.query
         if (this.allProduct) {
           this.allProduct.forEach((item) => {
@@ -109,18 +111,51 @@
           })
         }
       },
-      log(img){
+      selectImg(img){
         this.showImg = img
       },
-      changeAmount(type){
-        if (type === 'minus') {
-          if (this.amount !== 0) {
-            this.amount --
+      changeNumber(type){
+        if (type === 'reduce') {
+          if (this.number !== 0) {
+            this.number --
           }
         }else {
-          this.amount ++
+          this.number ++
         }
 
+      },
+      addCart(number){
+        if(number !== 0){
+          // 获取用户
+          let currentUser = AV.User.current()
+          // 获取当前时间
+          let d = new Date()
+          let time = d.toLocaleString()
+          // 获取当前展示产品的数据
+          let {productId} = this.currentProduct
+          let product = {...this.currentProduct, number,time}
+          // 设置购物单
+          let cart = []
+          if(currentUser.attributes.cart){cart = currentUser.attributes.cart}
+          // 关联锁
+          let exist = false
+          // 产品存在，则修改
+          cart.forEach((item)=>{
+            if(item.productId === productId){
+              exist = true
+              item.number = item.number + number
+              item.time = time
+            }
+          })
+          // 产品不存在，则添加
+          if(exist===false){cart.push(product)}
+          currentUser.set('cart', cart)
+          currentUser.save().then(()=>{
+            console.log(cart)
+            this.number = 0
+            this.$toast('已添加到购物车',{position:'middle',center: true})
+          })
+        }
       }
     },
     watch: {
@@ -190,7 +225,7 @@
         /*border: 1px solid blue;*/
         padding: 50px 20px 20px 20px;
 
-        .price-info, .amount-info {
+        .price-info, .number-info {
           margin-top: 30px;
 
           input {
@@ -201,8 +236,8 @@
             text-align: center;
           }
         }
-        .price-info > span{color: #e86464}
-        .amount-info {
+        .price-info > span {color: #e86464}
+        .number-info {
           display: flex;
           align-items: center;
 
@@ -234,20 +269,20 @@
       border: 1px solid $border-color;
       padding: 10px;
 
-      .tabs-details{
+      .tabs-details {
         padding: 20px;
 
-        .details-list{
+        .details-list {
           float: left;
           padding-right: 50px;
 
-          li{padding: 5px 0;}
+          li {padding: 5px 0;}
         }
       }
     }
   }
 
-  .clearFix::after{
+  .clearFix::after {
     display: block;
     content: '';
     clear: both;

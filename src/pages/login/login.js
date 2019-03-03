@@ -28,10 +28,11 @@ new Vue({
         }, function (error){
           console.log('注册失败，该用户名已存在。')
         }).then(() => {
-
+          console.log('登录跳转')
           AV.User.logIn(this.username, this.password).then(function (loggedInUser){
-            console.log('登录成功', 2222)
-          }, function (error){}).then(()=>{this.goMember()})
+          }, function (error){}).then(()=>{
+            this.goMember()
+          })
         })
       }else {
         this.$toast('请填写用户名及登录密码',{center:true,autoClose: 2000})

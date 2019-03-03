@@ -11,31 +11,67 @@
   </style>
 </head>
 <body>
-  <div id="app" v-cloak>
-    <miro-header></miro-header>
-    <div class="cart-main" @click="log">
-      <miro-tabs class="cart-tabs" :select.sync="activeNames">
-        <miro-tabs-head slot="head">
-          <miro-tabs-item name="1">购物车</miro-tabs-item>
-          <miro-tabs-item name="2">已购商品</miro-tabs-item>
-        </miro-tabs-head>
+<div id="app" v-cloak>
+  <miro-header></miro-header>
+  <div class="cart-main">
+    <miro-tabs class="cart-tabs" :select.sync="activeNames">
+      <miro-tabs-head slot="head">
+        <miro-tabs-item name="1">购物车</miro-tabs-item>
+        <miro-tabs-item name="2">已购商品</miro-tabs-item>
+      </miro-tabs-head>
 
-        <miro-tabs-pane name="1" style="line-height: 100px; text-align: center">
-          <ul>
-            <li v-for="item in cartList">
-              待购商品 {{item}}
-            </li>
-          </ul>
-        </miro-tabs-pane>
-        <miro-tabs-pane name="2" style="line-height: 100px; text-align: center">
-          <ul>
-            <li v-for="item in orderList">
-              已购商品 {{item}}
-            </li>
-          </ul>
-        </miro-tabs-pane>
-      </miro-tabs>
-    </div>
+      <miro-tabs-pane name="1" class="cart-group">
+        <ul v-if="cartList">
+          <li v-for="goods in cartList" class="cart-item" :key="goods.productId">
+              <span class="select-button"
+                    @click="selectGoods(goods)"
+                    :class="{select: goods.select === true}"
+                    >
+              </span>
+            <img :src="goods.img[0]" alt="goods">
+            <span class="item-goods-name">
+                {{goods.name}}
+              </span>
+            <div class="item-part">
+              <div class="item-goods-actions">
+                <span class="action-button" @click="changeGoodsNumber(goods,'reduce')">-</span>
+                <input type="text" :value="goods.number" readonly>
+                <span class="action-button" @click="changeGoodsNumber(goods,'add')">+</span>
+              </div>
+              <div class="item-goods-price">
+                ￥{{goods.price}}
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="placeholder" v-if="(cartList && cartList.length === 0)">空</div>
+        <div class="action-bar">
+          <div class="action-bar-button">
+            <span class="select-button" @click="selectAllGoods" :class="{select: allSelected === true}"></span>
+            <span>全选</span>
+            <span class="remove" @click="removeGoods">删除</span>
+          </div>
+          <div class="select-info">
+            (5件)合计：
+            <span class="total" v-if="goodsTotal!=0">￥{{goodsTotal}}</span>
+            <span v-else>0</span>
+          </div>
+          <div class="pay" @click="onPay">
+            结算
+          </div>
+        </div>
+      </miro-tabs-pane>
+
+
+      <miro-tabs-pane name="2" style="line-height: 100px; text-align: center">
+        <ul>
+          <li v-for="item in orderList">
+            已购商品 {{item.name}}
+          </li>
+        </ul>
+      </miro-tabs-pane>
+    </miro-tabs>
   </div>
+</div>
 </body>
 </html>

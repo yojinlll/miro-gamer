@@ -24,16 +24,16 @@
     <div class="member-info">
       <miro-tabs class="member-tabs" :select.sync="activeNames">
         <miro-tabs-head slot="head">
-          <miro-tabs-item name="1">个人资料</miro-tabs-item>
-          <miro-tabs-item name="2">地址设置</miro-tabs-item>
+          <!--<miro-tabs-item name="2">个人资料</miro-tabs-item>-->
+          <miro-tabs-item name="1">地址设置</miro-tabs-item>
           <!--<miro-tabs-item name="3">密码修改</miro-tabs-item>-->
         </miro-tabs-head>
 
-        <miro-tabs-pane name="1">
-          <miro-button @click="confirm">confirm</miro-button>
-        </miro-tabs-pane>
+        <!--<miro-tabs-pane name="2">-->
+          <!--<miro-button @click="confirm">confirm</miro-button>-->
+        <!--</miro-tabs-pane>-->
 
-        <miro-tabs-pane name="2">
+        <miro-tabs-pane name="1">
           <div class="tabs-item">
             <label>收&nbsp;货&nbsp;人：</label>
             <miro-input v-model="userData.user"></miro-input>
