@@ -86,10 +86,10 @@
       }
     },
     computed: {
-      ...mapState(['allProduct']),
+      ...mapState(['category']),
     },
     mounted(){
-      if (! this.allProduct) {
+      if (! this.category.allProduct) {
         this.getAllProduct().then(() => {
           this.getCurrentProduct()
         })
@@ -103,8 +103,8 @@
       getCurrentProduct(){
         // 通过查询字符串获取对应产品数据
         let {id} = this.$router.currentRoute.query
-        if (this.allProduct) {
-          this.allProduct.forEach((item) => {
+        if (this.category.allProduct) {
+          this.category.allProduct.forEach((item) => {
             if (item.productId === id) {
               this.currentProduct = item
             }

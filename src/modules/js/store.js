@@ -4,7 +4,7 @@ Vue.use(Vuex)
 
 import AV from 'leancloud-storage'
 
-let handler = function (list,tag){
+let categoryHandler = function (list,tag){
   let array = []
   if(list){
     list.forEach((item)=>{
@@ -16,7 +16,7 @@ let handler = function (list,tag){
   return array
 }
 
-const store = new Vuex.Store({
+const categoryModule = {
   state: {
     allProduct: null,
     gameProduct: null,
@@ -25,8 +25,8 @@ const store = new Vuex.Store({
   mutations: {
     setCategoryProduct(state, list){
       state.allProduct = list
-      state.gameProduct = handler(state.allProduct,'game')
-      state.superProduct = handler(state.allProduct,'super')
+      state.gameProduct = categoryHandler(state.allProduct,'game')
+      state.superProduct = categoryHandler(state.allProduct,'super')
     },
   },
   actions: {
@@ -38,6 +38,16 @@ const store = new Vuex.Store({
         commit('setCategoryProduct',allProduct)
       })
     }
+  }
+}
+const cartModule = {
+
+}
+
+const store = new Vuex.Store({
+  modules: {
+    category: categoryModule,
+    cart: cartModule,
   }
 })
 

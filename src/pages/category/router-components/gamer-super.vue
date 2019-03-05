@@ -1,7 +1,7 @@
 <template>
   <div class="product-list-wrapper">
     <ul class="product-list clearFix">
-      <li class="product-item" @click="xxx(item.productId)" v-for="item in superProduct" v-if="superProduct" :key="item.id">
+      <li class="product-item" @click="goProduct(item.productId)" v-for="item in category.superProduct" v-if="category.superProduct" :key="item.id">
         {{item.name}}
       </li>
     </ul>
@@ -9,15 +9,23 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import {mapState,mapActions} from 'vuex'
+
 
   export default {
     name: "gamer-super",
     computed: {
-      ...mapState(['superProduct'])
+      ...mapState(['category'])
+    },
+    mounted(){
+      if(!this.category.superProduct){
+        this.getAllProduct()
+      }
     },
     methods: {
-      xxx(id){
+      ...mapActions(['getAllProduct']),
+
+      goProduct(id){
         this.$router.push({name: 'product',query: { id:id }})
       }
     }

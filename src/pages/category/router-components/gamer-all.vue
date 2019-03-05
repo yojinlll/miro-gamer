@@ -1,7 +1,7 @@
 <template>
   <div class="product-list-wrapper">
     <ul class="product-list clearFix">
-      <li class="product-item" @click="xxx(item.productId)" v-for="item in allProduct" v-if="allProduct" :key="item.id">
+      <li class="product-item" @click="goProduct(item.productId)" v-for="item in category.allProduct" v-if="category.allProduct" :key="item.id">
         {{item.name}}
       </li>
     </ul>
@@ -14,17 +14,17 @@
   export default {
     name: "gamer-all",
     computed: {
-      ...mapState(['allProduct','gameProduct','superProduct'])
+      ...mapState(['category'])
     },
     mounted(){
-      if(!this.allProduct){
+      if(!this.category.allProduct){
         this.getAllProduct()
       }
     },
     methods: {
       ...mapActions(['getAllProduct']),
 
-      xxx(id){
+      goProduct(id){
         this.$router.push({name: 'product',query: { id:id }})
       },
     },
