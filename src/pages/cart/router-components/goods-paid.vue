@@ -85,45 +85,6 @@
       &.miro-item-active {color: $theme-color;background: white;}
     }
     .miro-pane-active {padding: 10px 0;}
-    .goods-item {
-      @extend .extendStyle;
-
-      .goods-time{
-        padding-bottom: 5px; border-bottom: 1px solid  $border-color;
-        margin-bottom: 1em;font-size: 12px;
-      }
-
-      .goods-info-1{
-        display: flex;align-items: center;
-
-        img {margin-right: 10px;width: 60px;height: 60px;vertical-align: top;}
-
-        .item-goods-name {
-          display: inline-block;
-          width: 300px;
-          font-size: 14px;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          cursor: pointer;
-
-          &:hover {color: $theme-color}
-        }
-        .action-button{
-          margin-left: auto;
-
-          .miro-button[one]{background: #ff6448; border: none; color: white;}
-          .miro-button[two]{background: #8ab7ff; border: none; color: white;}
-          .miro-button[three]{background: #82d07f; border: none; color: white;}
-        }
-      }
-      .goods-info-2{
-        font-size: 14px;padding-top: 5px;margin-top: 1em;
-
-        .info{margin-right: 10px;font-size: 12px;}
-      }
-    }
 
   }
 </style>

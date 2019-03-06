@@ -148,7 +148,7 @@
             }
           })
           // 产品不存在，则添加
-          if(exist===false){cart.push(product)}
+          if(exist===false){cart.unshift(product)}
           currentUser.set('cart', cart)
           currentUser.save().then(()=>{
             this.number = 0

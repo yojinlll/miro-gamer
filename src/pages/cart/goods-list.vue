@@ -6,10 +6,10 @@
         <div class="goods-info-1">
           <img :src="goods.img[0]" alt="goods">
           <span class="item-goods-name" @click="goProduct(goods.productId)">
-                  {{goods.name}}
-              </span>
-          <div class="action-button" @click="actions(goods)">
-            <miro-button one v-if="!goods.receive">确认收货</miro-button>
+            {{goods.name}}
+          </span>
+          <div class="action-button">
+            <miro-button one v-if="!goods.receive" @click="confirmReceive(goods)">确认收货</miro-button>
             <miro-button two v-else-if="goods.receive && !goods.evaluate" @click="onPopover(goods)">评价商品</miro-button>
             <miro-button three v-else-if="goods.receive && goods.evaluate" @click="goProduct(goods.productId)">
               查看评价
@@ -29,11 +29,19 @@
         </div>
       </li>
     </ul>
-    <div class="placeholder">空</div>
+    <div class="placeholder" v-if="!list || (list && list.length===0)">空</div>
     <div class="evaluate-frame" v-if="popoverActive">
-      <miro-button @click="popoverActive = false">
-        close
-      </miro-button>
+      <div class="goods-part">
+        <img :src="evaluateGoods.img[0]" alt="goods">
+        <span @click="goProduct(evaluateGoods.productId)">
+          {{evaluateGoods.name}}
+        </span>
+      </div>
+      <textarea class="evaluate-part" v-model="evaluateText"></textarea>
+      <div class="button-part">
+        <miro-button @click="confirmEvaluateHandler(evaluateGoods)">确认</miro-button>
+        <miro-button @click="popoverActive = false">取消</miro-button>
+      </div>
     </div>
   </div>
 </template>
@@ -41,36 +49,42 @@
 <script>
   import {mapState, mapGetters, mapMutations} from 'vuex'
   import AV from 'leancloud-storage'
+
   const currentUser = AV.User.current()
 
   export default {
     name: "goods-list",
     data(){
       return {
-        popoverActive: false
+        evaluateGoods: null,
+        popoverActive: false,
+        evaluateText: ''
       }
     },
     props: {list: Array},
-    computed:{
+    computed: {
       ...mapState(['cart'])
     },
     methods: {
-      ...mapMutations(['confirmReceive','confirmEvaluate']),
+      ...mapMutations(['confirmReceive', 'confirmEvaluate']),
 
       goProduct(id){
-        // location.href = `category.html#/product?id=${id}`
+        location.href = `category.html#/product?id=${id}`
       },
-      actions(goods){
-        if (! goods.receive) {
-          this.confirmReceive(goods)
-        }else if (goods.receive && ! goods.evaluate) {
-          this.confirmEvaluate(goods)
-        }
-        // currentUser.set('paid', this.cart.paidList)        // 更新已付款列表
-        // currentUser.save()
-      },
-      onPopover(index){
+      onPopover(goods){
         this.popoverActive = true
+        this.evaluateGoods = goods
+      },
+      confirmEvaluateHandler(goods){
+        if (this.evaluateText) {
+          goods.evaluateText = this.evaluateText
+          this.$toast('评价成功', {center: true, position: 'middle', autoClose: 2000})
+        }else {
+          this.$toast('请填写评价', {center: true, position: 'middle', autoClose: 2000})
+          return
+        }
+        this.confirmEvaluate(goods)
+        this.popoverActive = false
       }
     }
   }
@@ -133,12 +147,36 @@
 
   .evaluate-frame {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    height: 50vh;
     width: 50vw;
-    background: rgba(214, 214, 214, 0.4);
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    background: #F9F9F9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+
+    .goods-part {
+      margin: 20px;
+      display: flex;
+      align-items: center;
+      background: #fff;
+
+      > img {width: 100px; height: 100px;}
+      > span {display: inline-block; padding: 0 10px; min-width: 100px;}
+    }
+    .evaluate-part {
+      margin: 0 20px 20px 20px;
+      width: 80%; height: 200px;
+      border-radius: 4px;
+      background: white;
+      resize: none;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .button-part {display: flex; width: 100%; justify-content: space-around; padding: 0 20px 20px 20px;}
   }
 
   @media (max-width: 950px) {

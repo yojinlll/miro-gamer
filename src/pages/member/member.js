@@ -27,6 +27,21 @@ const currentUser = AV.User.current() // 获取当前用户
 // })
 // AV.Object.saveAll(array)
 
+// import {all} from '@/modules/js/productData.js'
+// let allId = all.map((item)=>{
+//   return item.id
+// })
+// console.log(allId)
+// let Evaluation = AV.Object.extend('Evaluation')
+// let array = []
+// allId.forEach((item)=>{
+//   let evaluation = new Evaluation()
+//   evaluation.set('id', item);
+//   evaluation.set('userEvaluation', []);
+//   array.push(evaluation)
+// })
+// AV.Object.saveAll(array)
+
 
 new Vue({
   el: '#app',

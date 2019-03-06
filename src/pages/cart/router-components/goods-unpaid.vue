@@ -92,7 +92,7 @@
         if (this.unpaidList && this.unpaidList.length) {
           this.unpaidList.forEach((goods) => {
             if (goods.select) {
-              paid.push(goods)
+              paid.unshift(goods)
             }
           })
         }
@@ -105,7 +105,11 @@
     },
     methods: {
       getCartList(){
-        this.unpaidList = currentUser.attributes.cart
+        if(!currentUser.attributes.cart){
+          this.unpaidList = []
+        }else {
+          this.unpaidList = currentUser.attributes.cart
+        }
         this.unpaidList.forEach((goods) => {
           this.$set(goods, 'select', false)
         })
@@ -121,7 +125,7 @@
         this.allSelected = ! this.allSelected
       },
       removeGoods(){            // 删除商品
-        let array = null
+        let array = []
         if (this.unpaidList && this.unpaidList.length) {
           array = this.unpaidList.filter((goods) => {
             return ! goods.select
@@ -168,9 +172,10 @@
               goods.time = time.toLocaleString()
               goods.receive = false
               goods.evaluate = false
-              paid.push(goods)
+              goods.evaluateText = ''
+              paid.unshift(goods)
             }else {
-              unpaid.push(goods)
+              unpaid.unshift(goods)
             }
           })
         }
