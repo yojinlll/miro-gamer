@@ -151,10 +151,11 @@
           if(exist===false){cart.push(product)}
           currentUser.set('cart', cart)
           currentUser.save().then(()=>{
-            console.log(cart)
             this.number = 0
             this.$toast('已添加到购物车',{position:'middle',center: true})
           })
+        }else {
+          this.$toast('未选择购买数量',{position:'middle',center: true,autoClose:2000})
         }
       }
     },
