@@ -9,6 +9,7 @@ import Header from '@/components/miro-header.vue'
 Vue.component('miro-header',Header)
 
 let mixin = {
+
   methods: {
     checkLogin(){
       if (! this.$children) return
@@ -17,6 +18,19 @@ let mixin = {
           if(!component.currentUser) document.location.href = 'login.html'
         }
       })
+    },
+    windowResize(){     // 计算 category 分类页的产品列表如何居中 (./product-list.vue)
+      if(this.$refs.list){
+        if (this.$refs.list.clientWidth < 689) {
+          this.padding = (this.$refs.list.clientWidth - 250) / 2 - 10
+
+        }else if (this.$refs.list.clientWidth < 1039) {
+          this.padding = (this.$refs.list.clientWidth - 250 * 2) / 2 - 10 * 2
+
+        }else if(this.$refs.list.clientWidth < 1500){
+          this.padding = 40
+        }
+      }
     }
   }
 }

@@ -7,7 +7,11 @@ import '@/modules/css/common.css'
 import './category.scss'
 
 import Header from '@/components/miro-header.vue'
+import Loading from './router-components/gamer-loading'
 Vue.component('miro-header', Header)
+Vue.component('gamer-loading', Loading)
+
+import {mapState} from 'vuex'
 
 new Vue({
   el: '#app',
@@ -21,6 +25,9 @@ new Vue({
     },
     currentPath: 'all',
     sidebarHide: true,
+  },
+  computed: {
+    ...mapState(['category'])
   },
   mounted(){
     this.currentPath = this.$router.currentRoute.name

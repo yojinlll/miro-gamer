@@ -1,6 +1,6 @@
 <template>
   <div class="product-wrapper" v-if="currentProduct">
-    <div class="product-info">
+    <div class="product-info" >
       <div class="img-part">
         <div class="img-main">
           <img :src="showImg" alt="show-product-img">
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="product-detail">
+    <div class="product-detail" >
       <miro-tabs :select.sync="activeNames">
         <miro-tabs-head slot="head">
           <miro-tabs-item name="1">商品详情</miro-tabs-item>
@@ -73,10 +73,10 @@
               <div class="time">——&nbsp;{{item.time}}</div>
             </li>
           </ul>
+          <div style="line-height: 100px; text-align: center;" v-if="!evaluation.length">空</div>
         </miro-tabs-pane>
       </miro-tabs>
     </div>
-    <gamer-loading></gamer-loading>
   </div>
 </template>
 
@@ -130,7 +130,6 @@
         productEvaluation.equalTo('id', id);
         productEvaluation.find().then((result)=>{
           this.evaluation = result[0].attributes.userEvaluation
-          console.log(this.evaluation)
         })
       },
       selectImg(img){

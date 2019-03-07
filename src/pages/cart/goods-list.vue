@@ -78,13 +78,13 @@
       confirmEvaluateHandler(goods){
         if (this.evaluateText) {
           goods.evaluateText = this.evaluateText
-          this.$toast('评价成功', {center: true, position: 'middle', autoClose: 2000})
         }else {
           this.$toast('请填写评价', {center: true, position: 'middle', autoClose: 2000})
           return
         }
         this.confirmEvaluate(goods)
         this.popoverActive = false
+        this.$toast('评价成功', {center: true, position: 'middle', autoClose: 2000})
       }
     }
   }

@@ -25,6 +25,7 @@
     </aside>
 
     <main class="miro-layout-main" @click="sidebarHide = true">
+      <gamer-loading v-if="!category.allProduct"></gamer-loading>
       <router-view></router-view>
     </main>
   </div>
