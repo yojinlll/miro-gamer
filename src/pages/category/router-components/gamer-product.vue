@@ -63,22 +63,34 @@
             <li>锂电池电芯数量: 6芯锂电池</li>
           </ul>
         </miro-tabs-pane>
-        <miro-tabs-pane name="2" style="line-height: 100px; text-align: center">
-          商品评价
+        <miro-tabs-pane name="2">
+          <ul class="user-evaluation">
+            <li v-for="(item, index) in evaluation" :key="index">
+              <span class="username">
+                {{item.username}}:
+              </span>
+              <div class="content">{{item.text}}</div>
+              <div class="time">——&nbsp;{{item.time}}</div>
+            </li>
+          </ul>
         </miro-tabs-pane>
       </miro-tabs>
     </div>
+    <gamer-loading></gamer-loading>
   </div>
 </template>
 
 <script>
   import {mapState, mapActions} from 'vuex'
   import AV from 'leancloud-storage'
+  import Loading from './gamer-loading'
+
 
   export default {
     name: "gamer-product",
     data(){
       return {
+        evaluation: [],
         currentProduct: null,
         number: 0,
         showImg: null,
@@ -96,6 +108,7 @@
       }else {
         this.getCurrentProduct()
       }
+      this.getProductEvaluation()
     },
     methods: {
       ...mapActions(['getAllProduct']),
@@ -110,6 +123,15 @@
             }
           })
         }
+      },
+      getProductEvaluation(){
+        let {id} = this.$router.currentRoute.query
+        let productEvaluation = new AV.Query('Evaluation');
+        productEvaluation.equalTo('id', id);
+        productEvaluation.find().then((result)=>{
+          this.evaluation = result[0].attributes.userEvaluation
+          console.log(this.evaluation)
+        })
       },
       selectImg(img){
         this.showImg = img
@@ -163,6 +185,9 @@
       currentProduct(val){
         this.showImg = val.img[0]
       }
+    },
+    components: {
+      'gamer-loading': Loading
     }
   }
 </script>
@@ -174,9 +199,9 @@
   $theme-color: #6fb46c;
 
   .product-wrapper {
+    min-height: 500px;
     margin: 70px auto;
     padding: 10px;
-    border: 1px solid $border-color;
     width: 350px;
 
     .product-info {
@@ -199,6 +224,7 @@
           align-items: center;
           justify-content: center;
           overflow: hidden;
+          padding: 10px;
 
           img {
             width: 300px;
@@ -278,6 +304,25 @@
           padding-right: 50px;
 
           li {padding: 5px 0;}
+        }
+      }
+      .user-evaluation{
+        width: 100%;
+
+        li{
+          background: #fff;
+          margin-bottom: 20px;
+          padding: 10px;
+
+          .username{
+            display: inline-block;
+            padding: 0 5px;
+            color: $theme-color
+          }
+          .content{padding: 10px 20px;}
+          .time{margin-left: auto; width: 200px; color: #537dbd; font-size: 14px;}
+
+          &:last-child{margin-bottom: 0;}
         }
       }
     }

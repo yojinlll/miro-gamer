@@ -5,12 +5,13 @@
         {{item.name}}
       </li>
     </ul>
+    <gamer-loading v-if="!category.allProduct"></gamer-loading>
   </div>
 </template>
 
 <script>
   import {mapState,mapActions} from 'vuex'
-
+  import Loading from './gamer-loading'
 
   export default {
     name: "gamer-super",
@@ -28,6 +29,9 @@
       goProduct(id){
         this.$router.push({name: 'product',query: { id:id }})
       }
+    },
+    components: {
+      'gamer-loading': Loading
     }
   }
 </script>
@@ -40,7 +44,7 @@
 
   .product-list-wrapper {
     padding: 20px;
-    border: 1px solid $border-color;
+    min-height: 500px;
 
     .clearFix::after {
       display: block;

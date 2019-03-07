@@ -22,6 +22,9 @@ new Vue({
     currentPath: 'all',
     sidebarHide: true,
   },
+  mounted(){
+    this.currentPath = this.$router.currentRoute.name
+  },
   methods: {
     selectCategory(path){        // 触发 li 样式
       this.currentPath = path

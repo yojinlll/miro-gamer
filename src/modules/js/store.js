@@ -37,7 +37,6 @@ let upDateEvaluation = function (goods){
     let time = new Date()
     obj.time = time.toLocaleString()
     array.push(obj)
-
     let todo = AV.Object.createWithoutData('Evaluation', item[0].id);
     todo.set('userEvaluation', array);
     todo.save();

@@ -179,7 +179,7 @@
             }
           })
         }
-        this.paidList = [...this.paidList, ...paid]
+        this.paidList = [...paid, ...this.paidList]
         this.unpaidList = unpaid
         currentUser.set('cart', this.unpaidList)        // 更新未付款列表
         currentUser.set('paid', this.paidList)        // 更新已付款列表
