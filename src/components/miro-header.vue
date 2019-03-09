@@ -116,6 +116,7 @@
     align-items: center;
     justify-content: space-between;
     font-size: 1.5em;
+    z-index: 1;
 
     .left-part {
       span {cursor: pointer}

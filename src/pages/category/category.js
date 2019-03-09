@@ -18,7 +18,7 @@ new Vue({
   store,
   data: {
     categoryItem: {
-      all: {name: '全部', path: 'all'},
+      all: {name:  '全  部', path: 'all'},
       game: {name: '游戏本', path: 'game'},
       super: {name: '超级本', path: 'super'},
     },

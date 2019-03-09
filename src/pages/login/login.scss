@@ -1,12 +1,52 @@
 $color: #2c3e50;
 $border-color: #d1d3d6;
 
+$angle: 0;
+$rotate: 2;
+$bg-color1: #5a6f9c;
+$bg-color2: rgba(125, 201, 238, 0.85);
+$bg-color3: #39ce7e;
+$rgb1: 50;
+$rgb2: 255;
+$rgb3: 250;
+$duration: 6s;
+
+@keyframes bg-color {
+  0% {background-color: $bg-color1;}
+  30% {background-color: $bg-color2;}
+  80% {background-color: $bg-color3;}
+}
+@-webkit-keyframes bg-color {
+  0% {background-color: $bg-color1;}
+  30% {background-color: $bg-color2;}
+  80% {background-color: $bg-color3;}
+}
+@keyframes bg-spin {
+  @for $percent from 0 through 100 {
+    #{$percent}% {background-image: linear-gradient(#{($angle)}deg, rgba($rgb1, $rgb2, $rgb3, 1), transparent);}
+    $angle: $angle + $rotate;
+    $rgb1: $rgb1 + 2.55;
+    $rgb2: $rgb2 - 1.275;
+    $rgb3: $rgb3 - 0.6375;
+  }
+}
+
 .login-wrapper {
   width: 100vw;
   height: 100vh;
   background: #4abd8b;
-  background: linear-gradient(to bottom right, #5a6f9c 0%, #39ce7e 100%);
   color: #fff;
+  background: linear-gradient(to bottom right, #5a6f9c 0%, #39ce7e 100%);
+
+  background: $bg-color1 fixed;
+  animation-name: bg-spin, bg-color;
+  animation-duration: $duration, ($duration * 2);
+  animation-direction: alternate, normal;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: bg-spin, bg-color;
+  -webkit-animation-duration: $duration, ($duration * 2);
+  -webkit-animation-direction: alternate, normal;
+  -webkit-animation-iteration-count: infinite;
 
   h1 {
     font-size: 40px;
@@ -17,7 +57,7 @@ $border-color: #d1d3d6;
     top: 25%; left: 50%;
     transform: translateX(-50%);
 
-    &.active{top: 40%;}
+    &.active {top: 40%;}
   }
   .login {
     width: 40%;
@@ -97,7 +137,8 @@ $border-color: #d1d3d6;
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to{
+
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 

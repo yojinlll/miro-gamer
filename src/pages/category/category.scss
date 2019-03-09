@@ -48,12 +48,24 @@ $theme-color: #6fb46c;
 
       li {
         font-weight: 600;
-        margin-bottom: 20px;
         padding-left: 30px;
         cursor: pointer;
+        position: relative;
+        height: 30px;
+        line-height: 30px;
 
-        &:hover {color: rgba(125, 194, 121, 0.92)}
-        &.active {border-left: 5px solid $theme-color; transition: all }
+        .hover{
+          position: absolute;
+          top: 0; left: 0;
+          height: 30px;
+          width: 5px;
+          background: $theme-color;
+          transition: width .3s;
+          z-index: -1;
+        }
+
+        &:hover { .hover{width: 200px;} }
+        &.active {color: $theme-color; }
       }
     }
   }

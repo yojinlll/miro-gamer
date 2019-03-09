@@ -110,8 +110,6 @@
         this.getCurrentProduct()
       }
       this.getProductEvaluation()
-      console.log(currentUser)
-
     },
     methods: {
       ...mapActions(['getAllProduct']),

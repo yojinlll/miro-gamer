@@ -19,6 +19,7 @@
     <aside class="miro-sidebar">
       <ul class="sidebar-inner">
         <li v-for="item in categoryItem" @click="selectCategory(item.path)" :class="{active: item.path===currentPath}" :key="item.path">
+          <div class="hover"></div>
           {{item.name}}
         </li>
       </ul>

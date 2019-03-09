@@ -3,8 +3,10 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import List from './product-list'
-import Product from './gamer-product'
+// import List from './product-list'
+// import Product from './gamer-product'
+const List = () => import('./product-list.vue')
+const Product = () => import('./gamer-product.vue')
 
 let routes = [
   {path: '/', redirect: List},
