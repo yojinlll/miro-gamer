@@ -7,22 +7,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>login</title>
   <style>
-    [v-cloak]{display: none;}
+    [v-cloak] {display: none;}
   </style>
 </head>
 <body>
-  <div id="app" v-cloak>
-    <div class="login-wrapper">
-      <div class="login">
-        <miro-input placeholder="用户名" v-model="username"></miro-input>
-        <miro-input placeholder="密码" password v-model="password"></miro-input>
-        <miro-button style="width: 190px;" @click="signup">登录</miro-button>
-        <miro-button style="width: 190px;" @click="logout">注销</miro-button>
-        <miro-button style="width: 190px;" @click="confirm">当前用户</miro-button>
+<div id="app" v-cloak>
+  <div class="login-wrapper">
+    <h1 :class="{active: isActive}">Welcome</h1>
+    <transition name="fade">
+      <div class="login" v-if="!isActive">
+        <input placeholder="用户名" v-model="username">
+        <input placeholder="密 &ensp; 码" type="password" v-model="password">
+        <button class="button" @click="signup">登 &ensp; 录</button>
+        <div class="tips">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#i-info"></use>
+          </svg>
+          账号未曾注册则自动注册
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
-
-  <!--<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js"></script>-->
+</div>
 </body>
 </html>

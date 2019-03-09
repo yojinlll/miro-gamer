@@ -6,15 +6,19 @@ import './login.scss'
 
 import mixin from '@/modules/js/mixin.js'       // miro 组件引入
 import AV from 'leancloud-storage'
-
+const currentUser = AV.User.current()
 
 new Vue({
   el: '#app',
   data(){
     return {
       username: null,
-      password: null
+      password: null,
+      isActive: false
     }
+  },
+  mounted(){
+    if(currentUser) this.goMember()
   },
   methods: {
     signup(){
@@ -24,43 +28,26 @@ new Vue({
         user.setUsername(this.username)
         user.setPassword(this.password)
         user.signUp().then(function (loggedInUser){
-          console.log('注册成功', 1111)
-        }, function (error){
+          console.log('注册成功')
+        }, (error)=>{
           console.log('注册失败，该用户名已存在。')
         }).then(() => {
-          console.log('登录跳转')
-          AV.User.logIn(this.username, this.password).then(function (loggedInUser){
-          }, function (error){}).then(()=>{
+          AV.User.logIn(this.username, this.password).then((loggedInUser)=>{
+            this.isActive = true
             this.goMember()
+          }, (error)=>{
+            this.$toast('登录密码不正确',{center:true,autoClose: 2000})
           })
         })
       }else {
         this.$toast('请填写用户名及登录密码',{center:true,autoClose: 2000})
       }
     },
-    logout(){
-      AV.User.logOut()
-    },
-    confirm(){
-      let currentUser = AV.User.current()
-      console.log('无用户登录')
-
-      if (currentUser) {
-
-        console.log(currentUser.getSessionToken())
-        this.goMember()
-
-        return true
-      }
-    },
     goMember(){
-      this.$toast('登录成功，页面将在两秒后跳转', {
-        autoClose: 2000,
-        center: true
-      })
+      // this.$toast('登录成功，页面将在两秒后跳转', {autoClose: 2000, center: true})
       setTimeout(() => {
         document.location.href = 'member.html'
-      },2000)
+      },1000)
     }
 
   },

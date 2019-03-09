@@ -5,6 +5,7 @@ import Vue from 'vue'
 import {miro} from '@/components/miro/miro-ui.js'
 Vue.use(miro)
 
+import '@/components/miro/svg.js'
 import Header from '@/components/miro-header.vue'
 Vue.component('miro-header',Header)
 

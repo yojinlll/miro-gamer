@@ -25,7 +25,6 @@
   </header>
 </template>
 <script>
-  import '@/components/miro/svg.js'
   import mixin from '@/modules/js/mixin.js'
   import AV from 'leancloud-storage'
 

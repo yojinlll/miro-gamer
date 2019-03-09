@@ -176,7 +176,7 @@
         this.timerId = setTimeout(() => {
           this.indexActive = index
           this.timerId = null
-          setTimeout(()=>{this.indexActive = null},delay+1000)
+          setTimeout(()=>{this.indexActive = null},delay+500)
         }, delay)
 
       },
@@ -287,7 +287,7 @@
         .item-goods-price {
           padding-top: 1em;
           font-size: 14px;
-          color: orangered;
+          color: #e86464;
         }
       }
 
@@ -323,7 +323,7 @@
       .select-info {
         margin: 0 20px 0 auto; font-size: 14px;
 
-        .total {color: orangered;}
+        .total {color: #e86464;}
       }
 
       .pay {

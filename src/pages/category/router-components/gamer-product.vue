@@ -15,7 +15,7 @@
         <div>{{currentProduct.name}}</div>
         <div class="price-info">
           价格：
-          <span>￥{{currentProduct.price}}</span>
+          <span>￥{{currentProduct.price.toFixed(2)}}</span>
         </div>
         <div class="number-info">
           数量：
@@ -85,6 +85,7 @@
   import AV from 'leancloud-storage'
   import Loading from './gamer-loading'
 
+  const currentUser = AV.User.current()
 
   export default {
     name: "gamer-product",
@@ -109,6 +110,7 @@
         this.getCurrentProduct()
       }
       this.getProductEvaluation()
+      console.log(currentUser)
 
     },
     methods: {
@@ -147,7 +149,7 @@
 
       },
       goCart(number){
-        if(this.addCart(number) === true){
+        if (this.addCart(number) === true) {
           setTimeout(() => {
             document.location.href = 'cart.html'
           }, 2500)
@@ -156,7 +158,10 @@
       addCart(number){
         if (number !== 0) {
           // 获取用户
-          let currentUser = AV.User.current()
+          if (! currentUser) {
+            this.$toast('购物前请先登录', {position: 'middle', center: true, autoClose: 2000})
+            return
+          }
           // 获取当前时间
           let d = new Date()
           let time = d.toLocaleString()
@@ -179,7 +184,9 @@
             }
           })
           // 产品不存在，则添加
-          if (exist === false) {cart.unshift(product)}
+          if (exist === false) {
+            cart.unshift(product)
+          }
           currentUser.set('cart', cart)
           currentUser.save().then(() => {
             this.number = 0

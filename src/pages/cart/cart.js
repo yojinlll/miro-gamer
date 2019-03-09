@@ -9,9 +9,6 @@ import './cart.scss'
 import mixin from '@/modules/js/mixin.js'
 import AV from 'leancloud-storage'
 
-// import {mapState, mapActions} from 'vuex'
-
-
 new Vue({
   el: '#app',
   store,
