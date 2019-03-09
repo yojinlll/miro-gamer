@@ -193,6 +193,13 @@
     watch: {
       currentProduct(val){
         this.showImg = val.img[0]
+      },
+      category: {
+        handler(){
+          this.getCurrentProduct()
+          this.getProductEvaluation()
+        },
+        deep: true
       }
     },
     components: {
