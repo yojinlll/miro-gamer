@@ -1,6 +1,6 @@
 <template>
   <div class="product-wrapper" v-if="currentProduct">
-    <div class="product-info" >
+    <div class="product-info">
       <div class="img-part">
         <div class="img-main">
           <img :src="showImg" alt="show-product-img">
@@ -25,13 +25,13 @@
         </div>
         <div class="actions">
           <miro-button-group>
-            <miro-button @click="addCart(number)">立即购买</miro-button>
+            <miro-button @click="goCart(number)">立即购买</miro-button>
             <miro-button @click="addCart(number)">添加购物车</miro-button>
           </miro-button-group>
         </div>
       </div>
     </div>
-    <div class="product-detail" >
+    <div class="product-detail">
       <miro-tabs :select.sync="activeNames">
         <miro-tabs-head slot="head">
           <miro-tabs-item name="1">商品详情</miro-tabs-item>
@@ -109,6 +109,7 @@
         this.getCurrentProduct()
       }
       this.getProductEvaluation()
+
     },
     methods: {
       ...mapActions(['getAllProduct']),
@@ -126,9 +127,9 @@
       },
       getProductEvaluation(){
         let {id} = this.$router.currentRoute.query
-        let productEvaluation = new AV.Query('Evaluation');
-        productEvaluation.equalTo('id', id);
-        productEvaluation.find().then((result)=>{
+        let productEvaluation = new AV.Query('Evaluation')
+        productEvaluation.equalTo('id', id)
+        productEvaluation.find().then((result) => {
           this.evaluation = result[0].attributes.userEvaluation
         })
       },
@@ -145,8 +146,15 @@
         }
 
       },
+      goCart(number){
+        if(this.addCart(number) === true){
+          setTimeout(() => {
+            document.location.href = 'cart.html'
+          }, 2500)
+        }
+      },
       addCart(number){
-        if(number !== 0){
+        if (number !== 0) {
           // 获取用户
           let currentUser = AV.User.current()
           // 获取当前时间
@@ -154,29 +162,32 @@
           let time = d.toLocaleString()
           // 获取当前展示产品的数据
           let {productId} = this.currentProduct
-          let product = {...this.currentProduct, number,time}
+          let product = {...this.currentProduct, number, time}
           // 设置购物单
           let cart = []
-          if(currentUser.attributes.cart){cart = currentUser.attributes.cart}
+          if (currentUser.attributes.cart) {
+            cart = currentUser.attributes.cart
+          }
           // 关联锁
           let exist = false
           // 产品存在，则修改
-          cart.forEach((item)=>{
-            if(item.productId === productId){
+          cart.forEach((item) => {
+            if (item.productId === productId) {
               exist = true
               item.number = item.number + number
               item.time = time
             }
           })
           // 产品不存在，则添加
-          if(exist===false){cart.unshift(product)}
+          if (exist === false) {cart.unshift(product)}
           currentUser.set('cart', cart)
-          currentUser.save().then(()=>{
+          currentUser.save().then(() => {
             this.number = 0
-            this.$toast('已添加到购物车',{position:'middle',center: true})
+            this.$toast('已添加到购物车', {position: 'middle', center: true, autoClose: 2000})
           })
+          return true
         }else {
-          this.$toast('未选择购买数量',{position:'middle',center: true,autoClose:2000})
+          this.$toast('未选择购买数量', {position: 'middle', center: true, autoClose: 2000})
         }
       }
     },
@@ -305,23 +316,23 @@
           li {padding: 5px 0;}
         }
       }
-      .user-evaluation{
+      .user-evaluation {
         width: 100%;
 
-        li{
+        li {
           background: #fff;
           margin-bottom: 20px;
           padding: 10px;
 
-          .username{
+          .username {
             display: inline-block;
             padding: 0 5px;
             color: $theme-color
           }
-          .content{padding: 10px 20px;}
-          .time{margin-left: auto; width: 200px; color: #537dbd; font-size: 14px;}
+          .content {padding: 10px 20px;}
+          .time {margin-left: auto; width: 200px; color: #537dbd; font-size: 14px;}
 
-          &:last-child{margin-bottom: 0;}
+          &:last-child {margin-bottom: 0;}
         }
       }
     }

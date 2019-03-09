@@ -25,8 +25,20 @@
     </aside>
 
     <main class="miro-layout-main" @click="sidebarHide = true">
-      <gamer-loading v-if="!category.allProduct"></gamer-loading>
+      <!--<gamer-loading v-if="!category.allProduct"></gamer-loading>-->
+      <div class="loading" v-if="!category.allProduct">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#i-loading"></use>
+        </svg>
+      </div>
+
       <router-view></router-view>
+
+      <div class="scrollTop" v-if="scrollToTop" @click="toTop">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#i-top"></use>
+        </svg>
+      </div>
     </main>
   </div>
 </div>

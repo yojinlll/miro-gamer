@@ -1,26 +1,29 @@
 <template>
   <div class="goods-unpaid-wrapper">
     <ul>
-      <li v-for="goods in unpaidList" class="goods-item" :key="goods.productId">
-              <span class="select-button"
-                    @click="selectGoods(goods)"
-                    :class="{select: goods.select === true}"
-              >
-              </span>
+      <li v-for="(goods, index) in unpaidList" class="goods-item" :key="goods.productId">
+        <span class="select-button"
+              @click="selectGoods(goods)"
+              :class="{select: goods.select === true}"
+        >
+        </span>
         <img :src="goods.img[0]" alt="goods">
         <span class="item-goods-name" @click="goProduct(goods.productId)">
                 {{goods.name}}
               </span>
         <div class="item-part">
           <div class="item-goods-actions">
-            <span class="action-button" @click="changeGoodsNumber(goods,'reduce')">-</span>
+            <span class="action-button" @click="changeGoodsNumber(goods,'reduce',index)">-</span>
             <input type="text" :value="goods.number" readonly>
-            <span class="action-button" @click="changeGoodsNumber(goods,'add')">+</span>
+            <span class="action-button" @click="changeGoodsNumber(goods,'add',index)">+</span>
           </div>
           <div class="item-goods-price">
             ￥{{goods.price.toFixed(2)}}
           </div>
         </div>
+        <transition name="fade">
+          <div class="tips" v-if="indexActive===index" :class="">save</div>
+        </transition>
       </li>
     </ul>
 
@@ -56,6 +59,8 @@
       return {
         unpaidList: null,
         paidList: null,
+        indexActive: null,
+        timerId: null
       }
     },
     computed: {
@@ -105,7 +110,7 @@
     },
     methods: {
       getCartList(){
-        if(!currentUser.attributes.cart){
+        if (! currentUser.attributes.cart) {
           this.unpaidList = []
         }else {
           this.unpaidList = currentUser.attributes.cart
@@ -116,7 +121,9 @@
       },
       getPaidList(){
         this.paidList = currentUser.attributes.paid
-        if(!this.paidList){this.paidList = []}
+        if (! this.paidList) {
+          this.paidList = []
+        }
       },
       selectGoods(goods){
         goods.select = ! goods.select
@@ -137,7 +144,7 @@
       goProduct(id){            // 商品页跳转
         location.href = `category.html#/product?id=${id}`
       },
-      changeGoodsNumber(goods, type){         // 更新商品数量
+      changeGoodsNumber(goods, type, index){         // 更新商品数量
         if (type === 'reduce') {
           this.unpaidList.forEach((item) => {     // 数量减1，当前数量为1则从数组中移除
             if (item === goods) {
@@ -156,11 +163,22 @@
             }
           })
         }
-        this.updateLeanCloudCart()
+        this.updateLeanCloudCart().then(() => {
+          this.onTips(index, 300)
+        })
       },
       updateLeanCloudCart(){
         currentUser.set('cart', this.unpaidList)
-        currentUser.save()
+        return currentUser.save()
+      },
+      onTips(index, delay){
+        if (this.timerId) {window.clearTimeout(this.timerId)}
+        this.timerId = setTimeout(() => {
+          this.indexActive = index
+          this.timerId = null
+          setTimeout(()=>{this.indexActive = null},delay+1000)
+        }, delay)
+
       },
       onPay(){
         let paid = []
@@ -223,6 +241,7 @@
 
     .goods-item {
       @extend .extendStyle;
+      position: relative;
 
       img {
         margin-right: 10px;
@@ -271,6 +290,19 @@
           color: orangered;
         }
       }
+
+      .tips {
+        /*display: none;*/
+        position: absolute;
+        right: -60px;
+        top: 20%;
+        font-size: 14px;
+        color: $theme-color;
+
+        &.active {
+
+        }
+      }
     }
     .placeholder {text-align: center; margin: 100px 0;}
     .action-bar {
@@ -307,6 +339,12 @@
         cursor: pointer;
       }
     }
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 
   @media (max-width: 870px) {

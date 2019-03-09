@@ -70,6 +70,25 @@ $theme-color: #6fb46c;
       margin: 100px;
       cursor: pointer;
     }
+    .loading{
+      width: 100px;
+      text-align: center;
+      margin: 200px auto;
+
+      > .icon{font-size: 3em;animation: spin 1.5s infinite linear;}
+    }
+
+    .scrollTop{
+      width: 30px; height: 30px;
+      position: fixed;  right: 3%; bottom: 5%;
+      display: flex;
+      justify-content: center; align-items: center;
+      cursor: pointer;
+    }
+    @keyframes spin{
+      0%{transform:rotate(0deg);}
+      100%{transform:rotate(360deg);}
+    }
   }
 }
 

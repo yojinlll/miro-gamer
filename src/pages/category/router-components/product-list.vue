@@ -3,11 +3,9 @@
     <ul class="product-list clearFix" ref="list" :style="{paddingLeft: padding+'px'} ">
       <li class="product-item" @click="goProduct(item.productId)" v-for="item in list"
           v-if="category.allProduct" :key="item.id" ref="item">
-        <div class="img">
-
-        </div>
+        <img class="img" :src="item.img[0]">
         <div class="price">
-
+          {{item.price}}
         </div>
         {{item.name}}
       </li>
@@ -31,22 +29,14 @@
     computed: {
       ...mapState(['category']),
 
-      list(){
-        if (this.name === 'all') {
-          return this.category.allProduct
-        }else if (this.name === 'game') {
-          return this.category.gameProduct
-        }else if (this.name === 'super') {
-          return this.category.superProduct
-        }
-      }
+      list(){return this.category[`${this.name}Product`]}     // 根据路由选择展示的产品类型
     },
     mounted(){
       if (! this.category.allProduct) {
         this.getAllProduct()
       }
       this.windowResize()
-      window.onresize = this.debounce
+      window.onresize = this.windowResize
     },
     methods: {
       ...mapActions(['getAllProduct']),

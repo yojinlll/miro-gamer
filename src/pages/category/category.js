@@ -9,7 +9,6 @@ import './category.scss'
 import Header from '@/components/miro-header.vue'
 import Loading from './router-components/gamer-loading'
 Vue.component('miro-header', Header)
-Vue.component('gamer-loading', Loading)
 
 import {mapState} from 'vuex'
 
@@ -25,11 +24,13 @@ new Vue({
     },
     currentPath: 'all',
     sidebarHide: true,
+    scrollToTop: false
   },
   computed: {
     ...mapState(['category'])
   },
   mounted(){
+    window.addEventListener('scroll', this.handleScroll)
     this.currentPath = this.$router.currentRoute.name
   },
   methods: {
@@ -40,6 +41,13 @@ new Vue({
     },
     onSidebar(){
       this.sidebarHide = !this.sidebarHide
+    },
+    toTop(){
+      document.documentElement.scrollTop = 0
+    },
+
+    handleScroll(){
+      document.documentElement.scrollTop > 200 ? this.scrollToTop = true : this.scrollToTop = false
     }
   },
   watch: {

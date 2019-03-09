@@ -36,7 +36,6 @@
         link: {
           login: 'login.html',
           member: 'member.html',
-          home: 'home.html',
           category: 'category.html#/all',
           cart: 'cart.html'
         },
