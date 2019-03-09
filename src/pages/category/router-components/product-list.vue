@@ -26,7 +26,6 @@
         name: this.$router.currentRoute.name,
         padding: 0,      // 窗口变化时计算padding值
         lock: false,
-        array: ["//img10.360buyimg.com/n1/s450x450_jfs/t16129/142/2493125586/322566/fb5d0fba/5ab0d977Nfacb1e3d.jpg","//img10.360buyimg.com/n1/s450x450_jfs/t17062/19/876647468/328159/6c6387dc/5ab0d977Nc5ea09b8.jpg"]
       }
     },
     computed: {
@@ -37,9 +36,6 @@
       }     // 根据路由选择展示的产品类型
     },
     mounted(){
-      if (! this.category.allProduct) {
-        this.getAllProduct()
-      }
       this.windowResize()
       window.onresize = this.windowResize
     },

@@ -7,7 +7,7 @@
           <span @click="goCategory">Miro</span>
       </span>
     <div class="right-part">
-      <svg class="icon cart-icon" aria-hidden="true" @click="goCart">
+      <svg class="icon" aria-hidden="true" @click="goCart">
         <use xlink:href="#i-cart"></use>
       </svg>
       <miro-popover position="bottom">

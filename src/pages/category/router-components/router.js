@@ -9,7 +9,7 @@ const List = () => import('./product-list.vue')
 const Product = () => import('./gamer-product.vue')
 
 let routes = [
-  {path: '/', redirect: List},
+  {path: '/', redirect: 'all'},
   {path: '/all', component: List, name: 'all'},
   {path: '/game', component: List, name: 'game'},
   {path: '/super', component: List, name: 'super'},

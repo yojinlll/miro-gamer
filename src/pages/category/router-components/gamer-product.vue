@@ -102,13 +102,7 @@
       ...mapState(['category']),
     },
     mounted(){
-      if (! this.category.allProduct) {
-        this.getAllProduct().then(() => {
-          this.getCurrentProduct()
-        })
-      }else {
-        this.getCurrentProduct()
-      }
+      this.getCurrentProduct()
       this.getProductEvaluation()
     },
     methods: {

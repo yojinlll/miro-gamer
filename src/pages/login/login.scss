@@ -77,7 +77,7 @@ $duration: 6s;
       outline: 0;
       border: 1px solid rgba(255, 255, 255, 0.4);
       background-color: rgba(255, 255, 255, 0.2);
-      width: 200px;
+      width: 250px;
       border-radius: 3px;
       padding: 10px 15px;
       margin: 0 auto 10px auto;
@@ -98,13 +98,13 @@ $duration: 6s;
 
       &:focus {
         background-color: white;
-        width: 250px;
+        width: 300px;
       }
     }
     .button {
       border: 1px solid rgba(255, 255, 255, 0.4);
       background-color: #fff;
-      width: 200px;
+      width: 250px;
       border-radius: 3px;
       padding: 10px 15px;
       margin: 0 auto 10px auto;

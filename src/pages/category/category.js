@@ -10,7 +10,7 @@ import Header from '@/components/miro-header.vue'
 import Loading from './router-components/gamer-loading'
 Vue.component('miro-header', Header)
 
-import {mapState} from 'vuex'
+import {mapState,mapActions} from 'vuex'
 
 new Vue({
   el: '#app',
@@ -30,10 +30,13 @@ new Vue({
     ...mapState(['category'])
   },
   mounted(){
+    this.getAllProduct()
     window.addEventListener('scroll', this.handleScroll)
     this.currentPath = this.$router.currentRoute.name
   },
   methods: {
+    ...mapActions(['getAllProduct']),
+
     selectCategory(path){        // 触发 li 样式
       this.currentPath = path
       this.$router.push({path: path})
